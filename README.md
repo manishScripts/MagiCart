@@ -104,7 +104,7 @@ Create a `.env` file in the backend folder:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb+srv://ecommerceAdmin:SimplePass123@cluster0.fwwsq3l.mongodb.net/ecommerce
+MONGO_URI=your_stirng
 JWT_SECRET=your_jwt_secret_key
 ADMIN_EMAIL=MagiCart123@gmail.com
 ADMIN_PASSWORD=MagiCart@123
@@ -112,12 +112,6 @@ CLOUDINARY_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
-
-**Important:** Update MongoDB connection:
-1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
-2. Add your IP to Network Access → IP Whitelist
-3. Create a new cluster (if not already done)
-4. Get your connection string and update `MONGO_URI`
 
 Start the backend:
 ```bash
@@ -261,7 +255,7 @@ This project is licensed under the ISC License.
 
 ## 📧 Support
 
-For issues and questions, please create an issue in the repository or contact MagiCart123@gmail.com
+For issues and questions, please create an issue in the repository or contact 252005ms@gmail.com
 
 ## 🎉 Acknowledgments
 
@@ -271,6 +265,3 @@ For issues and questions, please create an issue in the repository or contact Ma
 - Image hosting via Cloudinary
 - Database hosted on MongoDB Atlas
 
----
-
-**Happy Coding! 🚀**
