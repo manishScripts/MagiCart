@@ -29,20 +29,21 @@ services:
       - key: FRONTEND_URL
         fromService:
           name: e-commerce-frontend
-          type: static
+          type: web
           property: url
       - key: ADMIN_URL
         fromService:
           name: e-commerce-admin
-          type: static
+          type: web
           property: url
 
   # Frontend Static Site
-  - type: static
+  - type: web
     name: e-commerce-frontend
+    runtime: static
     plan: free
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     rootDir: frontend
     routes:
       - type: rewrite
@@ -56,11 +57,12 @@ services:
           property: url
 
   # Admin Static Site
-  - type: static
+  - type: web
     name: e-commerce-admin
+    runtime: static
     plan: free
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     rootDir: Admin
     routes:
       - type: rewrite
