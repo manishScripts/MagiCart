@@ -7,10 +7,10 @@ import Orders from "./pages/Orders.jsx";
 import { useContext } from "react";
 import { userDataContext } from "../context/UserContext.jsx";
 const App = () => {
-    let {userdata} = useContext(userDataContext);
+    let {userData} = useContext(userDataContext);
 return (
     <Routes>
-      <Route path="/" element={!userdata ? <Login /> : <Home />} />
+      <Route path="/" element={!userData ? <Login /> : <Home />} />
       <Route path="/adminHome" element={<Home />} />
       <Route path="/adminAdd" element={<Add />} />
       <Route path="/adminList" element={<List />} />

@@ -5,16 +5,16 @@ import axios from 'axios';
 export const userDataContext = createContext();
 const UserContext = ({children}) => {
   const {serverValue} = useContext(authDataContext);
-  const [userdata, setUserdata] = useState(null);
+  const [userData, setUserData] = useState(null);
   
   const getAdmin = React.useCallback(async () => {
     try {
       let result = await axios.get(`${serverValue}/api/user/adminProfile`,{withCredentials: true})
       console.log("admin data", result.data);
-      setUserdata(result.data);
+      setUserData(result.data);
     } catch (error) {
       console.log("error in fetching admin", error);
-      setUserdata(null);
+      setUserData(null);
     }
   }, [serverValue]);
 
@@ -25,8 +25,8 @@ const UserContext = ({children}) => {
   }, [getAdmin, serverValue]);
 
    let value = {
-    setUserdata,
-    userdata,
+    setUserData,
+    userData,
     getAdmin
    }
     return (

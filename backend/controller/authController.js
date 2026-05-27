@@ -112,7 +112,14 @@ export const adminLogin = async (req,res) => {
     try{
         const adminEmail = process.env.ADMIN_EMAIL;
         const adminPassword = process.env.ADMIN_PASSWORD;
+
+        if(!adminEmail || !adminPassword){
+            console.error("Admin credentials are not set in environment variables");
+            return res.status(500).json({message : "Server configuration error"});
+        }
+
         if(email !== adminEmail || password !== adminPassword){
+            console.log(`Failed admin login attempt for email: ${email}`);
             return res.status(400).json({message : "Invalid email or password"})
         }
         let token = await gentoken1(email);

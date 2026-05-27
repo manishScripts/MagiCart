@@ -7,7 +7,7 @@ import { authDataContext } from "../context/AuthContext";
 import axios from "axios";
 const Nav = () => {
     let {serverValue} = useContext(authDataContext);
-    let {userdata,setUserdata} = useContext(userDataContext);
+    let {userData,setUserData} = useContext(userDataContext);
     const navigate = useNavigate();
     const [isUserOpen, setIsUserOpen] = useState(false);
 
@@ -15,7 +15,7 @@ const Nav = () => {
         try{
             let result = await axios.get(`${serverValue}/api/auth/logout`,{withCredentials:true});
             console.log("Logout successful", result.data);
-            setUserdata(null);
+            setUserData(null);
             navigate('/adminLogin');    
         }catch(error){
             console.error("Error during logout", error);
@@ -52,13 +52,13 @@ const Nav = () => {
         {/* Links */}
         <li className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition-colors group" 
          onClick={() =>{ 
-          userdata ? navigate('/adminProfile') : navigate('/login')}}> <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-blue-600"></span>
+          userData ? navigate('/adminProfile') : navigate('/login')}}> <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-blue-600"></span>
           Profile
         </li>
         
         <li className="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition-colors group"
         onClick={() =>{ 
-          userdata ? navigate('/adminOrder') : navigate('/login')}}>
+          userData ? navigate('/adminOrder') : navigate('/login')}}>
           <span className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-blue-600"></span>
           Orders
         </li>
@@ -66,7 +66,7 @@ const Nav = () => {
         <div className="border-t border-gray-100 my-1"></div>
 
         {/* Conditional Login/Logout */}
-        {userdata ? (
+        {userData ? (
           <li 
             onClick={handleLogout}
             className="px-4 py-3 text-red-500 hover:bg-red-50 cursor-pointer transition-colors font-semibold"
