@@ -1,0 +1,68 @@
+services:
+  # Backend Web Service
+  - type: web
+    name: e-commerce-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8000
+      - key: MONGO_URI
+        sync: false # Set in Render Dashboard
+      - key: JWT_SECRET
+        sync: false # Set in Render Dashboard
+      - key: CLOUDINARY_NAME
+        sync: false # Set in Render Dashboard
+      - key: CLOUDINARY_API_KEY
+        sync: false # Set in Render Dashboard
+      - key: CLOUDINARY_API_SECRET
+        sync: false # Set in Render Dashboard
+      - key: ADMIN_EMAIL
+        sync: false # Set in Render Dashboard
+      - key: ADMIN_PASSWORD
+        sync: false # Set in Render Dashboard
+      - key: FRONTEND_URL
+        fromService:
+          name: e-commerce-frontend
+          type: static_site
+          property: url
+      - key: ADMIN_URL
+        fromService:
+          name: e-commerce-admin
+          type: static_site
+          property: url
+
+  # Frontend Static Site
+  - type: static_site
+    name: e-commerce-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_BACKEND_URL
+        fromService:
+          name: e-commerce-backend
+          type: web
+          property: url
+
+  # Admin Static Site
+  - type: static_site
+    name: e-commerce-admin
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    rootDir: Admin
+    envVars:
+      - key: VITE_BACKEND_URL
+        fromService:
+          name: e-commerce-backend
+          type: web
+          property: url

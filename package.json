@@ -1,0 +1,9 @@
+{
+  "name": "e-commerce-mern",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../Admin && npm install",
+    "build-all": "cd frontend && npm run build && cd ../Admin && npm run build",
+    "start-backend": "cd backend && npm start"
+  }
+}

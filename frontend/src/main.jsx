@@ -4,7 +4,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthContext } from './context/authContext.jsx';
 // import User from '../../backend/models/userSchema.js';
-import UserContext from './context/UserContext.jsx';
+import UserContext from './context/userContext.jsx';
 import  ShoppingProvider  from './context/shoppingContext.jsx';
 
 createRoot(document.getElementById('root')).render(

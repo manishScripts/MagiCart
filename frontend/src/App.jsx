@@ -13,7 +13,7 @@ import Collections from "./pages/Collection";
 import ProductDetail from "./pages/ProductDetail";
 import Contact from "./pages/Contact";
 import { React, useContext } from "react";
-import { userDataContext } from "./context/UserContext.jsx";
+import { userDataContext } from "./context/userContext.jsx";
 import Nav from "./components/Nav.jsx";
 import Order from "./pages/Order.jsx";
 import Cart from "./pages/Cart.jsx";

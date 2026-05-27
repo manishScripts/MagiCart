@@ -2,6 +2,7 @@ import React from 'react';
 import { FaEye } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { authDataContext } from '../context/authContext.jsx';
+import { userDataContext } from '../context/userContext.jsx';
 import { useContext } from 'react';
 import axios from 'axios';
 import { signInWithPopup } from 'firebase/auth';
@@ -9,6 +10,7 @@ import { auth, provider } from '../utils/Firebase.js';
 const RegistrationPage = () => {
   const navigate = useNavigate();
   let {serverValue} = useContext(authDataContext);
+  let {getcurrentUser} = useContext(userDataContext);
   let [name , setName] = React.useState("");
   let [email , setEmail] = React.useState("");
   let [password , setPassword] = React.useState("");
@@ -25,6 +27,7 @@ const RegistrationPage = () => {
       }    
     } catch (error) {
       console.log("error in registration", error);
+      alert(error.response?.data?.message || "Registration failed. Please try again.");
     }
   }
   const googleRegistration = async () => {
@@ -32,15 +35,17 @@ const RegistrationPage = () => {
     try {
       const response = await signInWithPopup(auth, provider);
       let user = response.user;
-      let name = user.displayName;
+      let name = user.displayName || user.email.split('@')[0];
       let email = user.email;
       let result = await axios.post(`${serverValue}` + '/api/auth/googleSignUp',{
         name,email
       },{withCredentials: true});
       console.log("google registration result", result.data);   
-
+      await getcurrentUser();
+      navigate('/');
     } catch (error) {
       console.log("error in google registration", error);
+      alert(error.message || "Google registration failed. Check your internet connection and try again.");
     }
   }
   return (

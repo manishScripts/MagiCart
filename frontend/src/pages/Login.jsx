@@ -21,10 +21,11 @@ const Login = () => {
         email,password
       },{withCredentials: true});
       console.log("login result", result.data);
-        getcurrentUser();
+        await getcurrentUser();
         navigate('/');
     } catch (error) {
       console.log("error in login", error);
+      alert(error.response?.data?.message || "Login failed. Please try again.");
     }
  }
 
@@ -33,17 +34,18 @@ const Login = () => {
     try {
       let response = await signInWithPopup(auth, provider);
       let user = response.user;
-      let name = user.displayName;
+      let name = user.displayName || user.email.split('@')[0];
       let email = user.email;
 
       let result = await axios.post(`${serverValue}` + '/api/auth/googleSignUp',{
         name,email
       },{withCredentials: true});
       console.log("google login result", result.data);
-      getcurrentUser();
+      await getcurrentUser();
       navigate('/');
     } catch (error) {
       console.log("error in google login", error);
+      alert(error.message || "Google login failed. Check your internet connection and try again.");
     }
  }
  

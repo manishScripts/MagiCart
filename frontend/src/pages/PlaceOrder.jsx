@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { userDataContext } from '../context/UserContext';
+import { userDataContext } from '../context/userContext';
 import { ShoppingContext } from '../context/shoppingContext';
 import { authDataContext } from '../context/authContext';
 import Title from '../components/Title';
@@ -17,9 +17,9 @@ const PlaceOrder = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    firstName: userdata?.name?.split(' ')[0] || '',
-    lastName: userdata?.name?.split(' ')[1] || '',
-    email: userdata?.email || '',
+    firstName: userdata?.user?.name?.split(' ')[0] || '',
+    lastName: userdata?.user?.name?.split(' ')[1] || '',
+    email: userdata?.user?.email || '',
     street: '',
     city: '',
     state: '',

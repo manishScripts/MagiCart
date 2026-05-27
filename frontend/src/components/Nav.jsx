@@ -1,6 +1,6 @@
 import  { useState ,useContext } from 'react';
 import { Search, ShoppingCart, User, X } from 'lucide-react';
-import { userDataContext } from '../context/UserContext';
+import { userDataContext } from '../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import { authDataContext } from '../context/authContext';
 import axios from 'axios';
@@ -10,13 +10,14 @@ const Navbar = () => {
   const {isSearchOpen, setIsSearchOpen} = useContext(ShoppingContext);
   const {search,setSearch,getCartCount} = useContext(ShoppingContext);
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const {userdata} = useContext(userDataContext);
+  const {userdata, setUserdata} = useContext(userDataContext);
   const {serverValue} = useContext(authDataContext);
   const navigate = useNavigate();
   const handleLogout = async() => {
     try{
       await axios.get(`${serverValue}/api/auth/logout`,{withCredentials:true});
       console.log("logged out successfully");
+      setUserdata(null);
       navigate('/login');
     }catch(err){
       console.log("error in logout", err);

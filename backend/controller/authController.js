@@ -26,8 +26,9 @@ export const registration = async (req,res) => {
         let token = await gentoken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         return res.status(201).json({message : "User registered successfully", user})
@@ -53,8 +54,9 @@ export const login = async (req,res) => {
         let token = await gentoken(existUser._id);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         return res.status(200).json({message : "Login successful", user: existUser})
@@ -91,8 +93,9 @@ export const googleSignUp = async (req,res) =>
         let token = await gentoken(user._id);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         
@@ -115,8 +118,9 @@ export const adminLogin = async (req,res) => {
         let token = await gentoken1(email);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+            path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
         return res.status(200).json({message : "Admin login successful"})

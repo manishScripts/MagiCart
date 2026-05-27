@@ -1,37 +1,31 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-// Load .env from the backend folder regardless of the process current working directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, '..', '.env') });
+dotenv.config();
 
 const connectDB = async () => {
   try {
-    if (!process.env.MONGO_URI) {
+    const mongoUri = process.env.MONGO_URI;
+    
+    if (!mongoUri) {
       throw new Error("MONGO_URI is not defined in environment variables");
     }
 
     console.log("Attempting to connect to MongoDB...");
-    console.log("Connection string (masked):", process.env.MONGO_URI.replace(/\/\/([^:]+):([^@]+)@/, '//*****:*****@'));
 
     const options = {
-      serverSelectionTimeoutMS: 30000, // Increased timeout
-      socketTimeoutMS: 45000,
-      family: 4, // Force IPv4
-      maxPoolSize: 10,
-      minPoolSize: 2,
+      serverSelectionTimeoutMS: 5000,
     };
 
-    await mongoose.connect(process.env.MONGO_URI, options);
+    await mongoose.connect(mongoUri, options);
     
     console.log("✅ MongoDB connected successfully");
-    console.log("📊 Database:", mongoose.connection.db.databaseName);
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
-    console.error("Full error:", error);
+    // Log helpful hint for common connection string errors
+    if (error.message.includes("is not a valid port") || error.message.includes("expected") || error.message.includes("@")) {
+      console.error("HINT: Your MONGO_URI might contain special characters in the password (like @, #, ?). These MUST be URL-encoded.");
+    }
     process.exit(1);
   }
 };

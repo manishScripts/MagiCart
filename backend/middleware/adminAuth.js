@@ -9,11 +9,10 @@ const adminAuth = (req,res,next) => {
   }
   try{
     const verifytoken = jwt.verify(token, process.env.JWT_SECRET);
-    if(!verifytoken){
-      return res.status(401).json({message : "Unauthorized: Invalid token"});
+    if(!verifytoken || verifytoken.email !== process.env.ADMIN_EMAIL){
+      return res.status(401).json({message : "Unauthorized: Invalid or insufficient permissions"});
     }
-    console.log(req);
-    req.AdminEmail = process.env.ADMIN_EMAIL;
+    req.AdminEmail = verifytoken.email;
     next();
   }
   catch(error){
