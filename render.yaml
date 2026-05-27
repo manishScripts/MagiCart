@@ -45,6 +45,10 @@ services:
     buildCommand: npm install && npm run build
     publishDir: dist
     rootDir: frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
         fromService:
@@ -60,6 +64,10 @@ services:
     buildCommand: npm install && npm run build
     publishDir: dist
     rootDir: Admin
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
         fromService:
