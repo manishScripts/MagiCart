@@ -29,18 +29,17 @@ services:
       - key: FRONTEND_URL
         fromService:
           name: e-commerce-frontend
-          type: static_site
+          type: static
           property: url
       - key: ADMIN_URL
         fromService:
           name: e-commerce-admin
-          type: static_site
+          type: static
           property: url
 
   # Frontend Static Site
-  - type: static_site
+  - type: static
     name: e-commerce-frontend
-    env: static
     plan: free
     buildCommand: npm install && npm run build
     publishDir: dist
@@ -57,9 +56,8 @@ services:
           property: url
 
   # Admin Static Site
-  - type: static_site
+  - type: static
     name: e-commerce-admin
-    env: static
     plan: free
     buildCommand: npm install && npm run build
     publishDir: dist
