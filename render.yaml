@@ -27,15 +27,9 @@ services:
       - key: ADMIN_PASSWORD
         sync: false # Set in Render Dashboard
       - key: FRONTEND_URL
-        fromService:
-          name: e-commerce-frontend
-          type: web
-          property: url
+        sync: false # Set to your frontend URL after it is created
       - key: ADMIN_URL
-        fromService:
-          name: e-commerce-admin
-          type: web
-          property: url
+        sync: false # Set to your admin URL after it is created
 
   # Frontend Static Site
   - type: web
@@ -51,10 +45,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
-        fromService:
-          name: e-commerce-backend
-          type: web
-          property: url
+        sync: false # Set to your backend URL (e.g., https://e-commerce-backend.onrender.com)
 
   # Admin Static Site
   - type: web
@@ -70,7 +61,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
-        fromService:
-          name: e-commerce-backend
-          type: web
-          property: url
+        sync: false # Set to your backend URL (e.g., https://e-commerce-backend.onrender.com)
