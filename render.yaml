@@ -35,7 +35,6 @@ services:
   - type: web
     name: e-commerce-frontend
     runtime: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDir: frontend
@@ -45,13 +44,12 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
-        sync: false # Set to your backend URL (e.g., https://e-commerce-backend.onrender.com)
+        sync: false # Set to your backend URL
 
   # Admin Static Site
   - type: web
     name: e-commerce-admin
     runtime: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDir: Admin
@@ -61,4 +59,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_BACKEND_URL
-        sync: false # Set to your backend URL (e.g., https://e-commerce-backend.onrender.com)
+        sync: false # Set to your backend URL
